@@ -1,0 +1,33 @@
+change all missing to zero with array
+
+**************************************
+
+
+data miss;
+input id $ name$ loc$ sal;
+infile datalines dlm=',';
+datalines;
+01, ,il, 
+02,roman,dl,500
+  ,rosi,tx,200
+04,jack, , 
+;
+run;
+
+data fill_miss;
+set miss;
+array all(*) _character_;
+do i=1 to dim(all);
+if all(i)=. then all(i)='0';
+end;
+drop i;
+run; 
+
+data fillit;
+set miss;
+array vall _numeric_;
+do over vall;
+if vall=. then vall=0;
+end;
+/*drop i;*/
+run;
